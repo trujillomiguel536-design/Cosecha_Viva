@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosecha Viva | Del campo a tu mesa</title>
+<meta name="description" content="Productos agrícolas frescos directamente del campo, con entrega en Bogotá. Pide por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hoja: #2F6B3A;
+    --hoja-osc: #1E4A28;
+    --tierra: #8A5A33;
+    --arena: #EADFCB;
+    --fondo: #FAF9F4;
+    --tinta: #1F2A22;
+    --suave: #5C675F;
+    --linea: #DDDCCF;
+    --blanco: #FFFFFF;
+    --titulos: "Bricolage Grotesque", Georgia, serif;
+    --texto: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; background: var(--fondo); color: var(--tinta); font-family: var(--texto); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--hoja); outline-offset: 3px; border-radius: 4px; }
+
+  /* Menú fijo */
+  .menu { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--fondo) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linea); }
+  .menu .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .marca { font-family: var(--titulos); font-weight: 700; font-size: 1.3rem; letter-spacing: -0.02em; text-decoration: none; color: var(--hoja-osc); white-space: nowrap; }
+  .menu nav { display: flex; gap: 22px; font-size: .95rem; font-weight: 500; }
+  .menu nav a { text-decoration: none; color: var(--suave); }
+  .menu nav a:hover { color: var(--hoja); }
+
+  .btn { display: inline-block; font: inherit; font-weight: 600; text-decoration: none; border-radius: 10px; padding: 12px 22px; cursor: pointer; border: 2px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+  .btn-pri { background: var(--hoja); color: #fff; }
+  .btn-pri:hover { background: var(--hoja-osc); }
+  .btn-sec { background: transparent; color: var(--hoja-osc); border-color: var(--hoja); }
+  .btn-sec:hover { background: var(--hoja); color: #fff; }
+
+  /* Portada */
+  .hero { padding: 64px 0 56px; background: linear-gradient(180deg, var(--arena) 0%, var(--fondo) 100%); }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+  h1 { font-family: var(--titulos); font-size: clamp(2.5rem, 6.5vw, 4.4rem); line-height: 1; letter-spacing: -0.035em; font-weight: 700; margin: 0 0 20px; color: var(--hoja-osc); }
+  .hero p { font-size: 1.2rem; color: var(--suave); max-width: 28em; margin: 0 0 28px; }
+  .acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+  .surco { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .surco div { aspect-ratio: 1; border-radius: 18px; display: grid; place-items: center; font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  .surco div:nth-child(1) { background: #DCEBC8; }
+  .surco div:nth-child(2) { background: #F3D9C0; transform: translateY(18px); }
+  .surco div:nth-child(3) { background: #E9E0B8; }
+  .surco div:nth-child(4) { background: #F2C9BF; }
+  .surco div:nth-child(5) { background: #D6C3AE; transform: translateY(18px); }
+  .surco div:nth-child(6) { background: #CFE3D2; }
+
+  section { padding: 64px 0 0; }
+  h2 { font-family: var(--titulos); font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.025em; margin: 0 0 10px; color: var(--hoja-osc); }
+  .intro { color: var(--suave); max-width: 36em; margin: 0 0 28px; }
+
+  /* Catálogo */
+  .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .filtro { font: inherit; font-weight: 500; font-size: .95rem; color: var(--tinta); background: var(--blanco); border: 1.5px solid var(--linea); border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+  .filtro:hover { border-color: var(--hoja); }
+  .filtro[aria-pressed="true"] { background: var(--hoja); border-color: var(--hoja); color: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
+  .prod { background: var(--blanco); border: 1px solid var(--linea); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+  .prod .foto { height: 150px; display: grid; place-items: center; font-size: 4.2rem; }
+  .prod .info { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+  .prod h3 { font-family: var(--titulos); font-size: 1.25rem; margin: 0 0 2px; letter-spacing: -0.01em; }
+  .prod .cat { font-size: .88rem; color: var(--suave); margin: 0 0 10px; }
+  .prod .desc { font-size: .98rem; margin: 0 0 14px; flex: 1; }
+  .prod .btn { text-align: center; padding: 10px 16px; font-size: .95rem; }
+  .vacio { color: var(--suave); }
+
+  /* Cómo funciona */
+  .pasos { list-style: none; counter-reset: p; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .pasos li { counter-increment: p; background: var(--blanco); border: 1px solid var(--linea); border-radius: 16px; padding: 22px; }
+  .pasos li::before { content: counter(p); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--tierra); color: #fff; font-weight: 600; margin-bottom: 12px; }
+  .pasos h3 { font-family: var(--titulos); font-size: 1.25rem; margin: 0 0 6px; }
+  .pasos p { margin: 0; color: var(--suave); font-size: 1rem; }
+
+  /* Contacto */
+  .contacto { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .caja { background: var(--hoja-osc); color: #fff; border-radius: 18px; padding: 28px; }
+  .caja h3 { font-family: var(--titulos); font-size: 1.5rem; margin: 0 0 8px; }
+  .caja p { margin: 0 0 18px; color: #D7E6D9; }
+  .caja .btn { background: #fff; color: var(--hoja-osc); }
+  .caja .btn:hover { background: var(--arena); }
+  .datos { margin: 0; display: grid; gap: 14px; align-content: start; }
+  .datos dt { font-weight: 600; font-size: .9rem; color: var(--suave); }
+  .datos dd { margin: 0; font-size: 1.05rem; }
+
+  footer { margin-top: 72px; background: var(--hoja-osc); color: #D7E6D9; padding: 36px 0; font-size: .95rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  footer a { text-decoration: none; margin-right: 18px; }
+  footer a:hover { color: #fff; }
+  footer strong { font-family: var(--titulos); font-size: 1.2rem; color: #fff; }
+
+  @media (max-width: 760px) {
+    .menu nav { gap: 14px; font-size: .88rem; }
+    .hero { padding-top: 36px; }
+    .hero .wrap, .contacto { grid-template-columns: 1fr; }
+    .pasos { grid-template-columns: 1fr; }
+    .marca { font-size: 1.1rem; }
+  }
+  @media (max-width: 460px) {
+    .menu nav a:nth-child(n+3) { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="menu">
+  <div class="wrap">
+    <a class="marca" href="#inicio">Cosecha Viva</a>
+    <nav aria-label="Principal">
+      <a href="#productos">Productos</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Del campo a tu mesa</h1>
+        <p>Frutas, verduras, tubérculos y café cosechados por productores de Cundinamarca y entregados frescos en Bogotá.</p>
+        <div class="acciones">
+          <a class="btn btn-pri" href="#productos">Ver productos</a>
+          <a class="btn btn-sec" id="wa-hero" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        </div>
+      </div>
+      <div class="surco" aria-hidden="true">
+        <div>🥑</div><div>🍌</div><div>🥔</div>
+        <div>🍅</div><div>☕</div><div>🧅</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="productos" style="padding-top:40px">
+    <div class="wrap">
+      <h2>Nuestros productos</h2>
+      <p class="intro">Elige una categoría y consulta el precio del día por WhatsApp.</p>
+      <div class="filtros" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
+      <div class="grid" id="grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="como">
+    <div class="wrap">
+      <h2>Cómo funciona</h2>
+      <p class="intro">Del cultivo a tu puerta en tres pasos.</p>
+      <ol class="pasos">
+        <li><h3>Cosecha</h3><p>Recogemos en el punto justo de maduración, el mismo día o el anterior a tu entrega.</p></li>
+        <li><h3>Empaque</h3><p>Seleccionamos cada producto a mano y lo empacamos para que llegue sin golpes.</p></li>
+        <li><h3>Entrega</h3><p>Te lo llevamos a tu casa o negocio en Bogotá, en el horario que acordemos.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap">
+      <h2>Haz tu pedido</h2>
+      <p class="intro">Escríbenos qué necesitas y te respondemos con disponibilidad y precio.</p>
+      <div class="contacto">
+        <div class="caja">
+          <h3>Pide por WhatsApp</h3>
+          <p>Es la forma más rápida: cuéntanos qué productos quieres y para cuándo.</p>
+          <a class="btn" id="wa-caja" href="#" target="_blank" rel="noopener">Escribir ahora</a>
+        </div>
+        <dl class="datos">
+          <div><dt>WhatsApp</dt><dd>300 123 4567</dd></div>
+          <div><dt>Correo</dt><dd><a href="mailto:hola@cosechaviva.co">hola@cosechaviva.co</a></dd></div>
+          <div><dt>Dirección</dt><dd>Calle 10 # 5-20, Bogotá</dd></div>
+          <div><dt>Horario</dt><dd>Lunes a sábado, de 7:00 a.m. a 5:00 p.m.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>Cosecha Viva</strong><br>
+      Página creada con ayuda de inteligencia artificial.
+    </div>
+    <div>
+      <a href="#productos">Productos</a><a href="#como">Cómo funciona</a><a href="#contacto">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Número de WhatsApp (cámbialo por el real, con código de país y sin espacios)
+  var WHATSAPP = "573001234567";
+
+  function wa(texto) {
+    return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto);
+  }
+  document.getElementById("wa-hero").href = wa("Hola, quiero hacer un pedido en Cosecha Viva.");
+  document.getElementById("wa-caja").href = wa("Hola, quiero hacer un pedido en Cosecha Viva.");
+
+  // Para usar fotos reales, agrega foto: "imagenes/aguacate.jpg" a un producto
+  var PRODUCTOS = [
+    { nombre: "Aguacate Hass", cat: "Frutas", unidad: "Por kilo", emoji: "🥑", color: "#DCEBC8",
+      desc: "Cremoso y de cáscara oscura. Listo para comer en 2 o 3 días." },
+    { nombre: "Plátano", cat: "Frutas", unidad: "Por kilo", emoji: "🍌", color: "#F3E7B8",
+      desc: "Maduro para postres o verde para patacones y sopas." },
+    { nombre: "Papa criolla", cat: "Tubérculos", unidad: "Por libra", emoji: "🥔", color: "#EFDFA8",
+      desc: "Pequeña, amarilla y de cocción rápida. Ideal para sopas y fritos." },
+    { nombre: "Yuca", cat: "Tubérculos", unidad: "Por kilo", emoji: "🍠", color: "#E8D3BA",
+      desc: "Blanca y firme. Se cocina para acompañar o se frita." },
+    { nombre: "Tomate", cat: "Verduras", unidad: "Por kilo", emoji: "🍅", color: "#F5CCC2",
+      desc: "Rojo y jugoso, para ensaladas, salsas y guisos." },
+    { nombre: "Cebolla", cat: "Verduras", unidad: "Por kilo", emoji: "🧅", color: "#EBD9E0",
+      desc: "Cebolla cabezona de sabor intenso, base de casi todo guiso." },
+    { nombre: "Café en grano", cat: "Café", unidad: "Bolsa de 500 g", emoji: "☕", color: "#D6C3AE",
+      desc: "Grano tostado de finca, para moler justo antes de prepararlo." }
+  ];
+  var CATEGORIAS = ["Todos", "Frutas", "Verduras", "Tubérculos", "Café"];
+
+  var grid = document.getElementById("grid");
+  var filtros = document.getElementById("filtros");
+  var activa = "Todos";
+
+  function pintarFiltros() {
+    filtros.innerHTML = "";
+    CATEGORIAS.forEach(function (c) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "filtro";
+      b.textContent = c;
+      b.setAttribute("aria-pressed", c === activa ? "true" : "false");
+      b.addEventListener("click", function () { activa = c; pintarFiltros(); pintarProductos(); });
+      filtros.appendChild(b);
+    });
+  }
+
+  function pintarProductos() {
+    grid.innerHTML = "";
+    var lista = PRODUCTOS.filter(function (p) { return activa === "Todos" || p.cat === activa; });
+    if (!lista.length) {
+      grid.innerHTML = '<p class="vacio">Todavía no hay productos en esta categoría.</p>';
+      return;
+    }
+    lista.forEach(function (p) {
+      var card = document.createElement("article");
+      card.className = "prod";
+      var foto = document.createElement("div");
+      foto.className = "foto";
+      foto.style.background = p.color;
+      if (p.foto) {
+        var img = document.createElement("img");
+        img.src = p.foto; img.alt = p.nombre;
+        img.style.cssText = "width:100%;height:100%;object-fit:cover";
+        foto.appendChild(img);
+      } else {
+        foto.textContent = p.emoji;
+        foto.setAttribute("role", "img");
+        foto.setAttribute("aria-label", p.nombre);
+      }
+      var info = document.createElement("div");
+      info.className = "info";
+      var h = document.createElement("h3"); h.textContent = p.nombre;
+      var c = document.createElement("p"); c.className = "cat"; c.textContent = p.cat + " · " + p.unidad;
+      var d = document.createElement("p"); d.className = "desc"; d.textContent = p.desc;
+      var a = document.createElement("a");
+      a.className = "btn btn-sec"; a.target = "_blank"; a.rel = "noopener";
+      a.href = wa("Hola, quiero consultar el precio de: " + p.nombre + " (" + p.unidad.toLowerCase() + ").");
+      a.textContent = "Consultar precio";
+      info.appendChild(h); info.appendChild(c); info.appendChild(d); info.appendChild(a);
+      card.appendChild(foto); card.appendChild(info);
+      grid.appendChild(card);
+    });
+  }
+
+  pintarFiltros();
+  pintarProductos();
+</script>
+</body>
+</html>
